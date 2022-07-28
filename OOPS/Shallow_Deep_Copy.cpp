@@ -23,8 +23,15 @@ class car
         strcpy(name,n);
 
     }
+    car ()
+    {
+
+    }
+
     ////////////////////////
+
     // Copy contructor overloading
+
     car(car * x) // Copy Constructor by passing a pntr
     {
         price = x->price;
@@ -41,8 +48,23 @@ class car
         name= new char[strlen(x.name)+1];
         strcpy(name,x.name);
     }
-    ////////////////////////////////
-    void print()
+    ////////////////////////////////////////////
+
+        // COPY ASSIGNMENT OPERATOR
+
+    void operator = (car& x)
+    {
+        price = x.price;
+        model_no = x.model_no;
+        name= new char[strlen(x.name)+1];
+        strcpy(name,x.name);
+
+    }
+
+    //////////////////////////////////////////////
+
+
+   void print()
     {
         cout<< "Name:" << name<<endl;
         cout<< "Model No:" << model_no << endl;
@@ -56,6 +78,8 @@ int main()
     car d(1000,234,"BMW"); // calling constructor
     car e(&d); // copy constructor passing pointer
     car f(d) ;// copy constructor passing reference
+    car s;
+    s=f;
     e.name[0] = 'A';
     e.model_no = 9876;
     f.name[1] = 'F';
@@ -63,6 +87,7 @@ int main()
     d.print();
     e.print();
     f.print();
+    s.print();
 
 
 }
