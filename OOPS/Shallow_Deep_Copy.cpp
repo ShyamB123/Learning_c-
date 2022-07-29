@@ -71,6 +71,16 @@ class car
         cout << "price:" << price << endl;
     }
 
+    //////////////////////////////////////////////
+
+    // DESTRUCTOR
+
+    ~car()
+    {
+        cout<< "deleting "<<name<<" from memory"<< endl;
+        delete [] name;
+    }
+
 
 };
 int main()
