@@ -1,6 +1,5 @@
 #include <iostream>
 using namespace std;
-using namespace std;
 
 void Insert(int x);
 void Insertn(int x,int n);
