@@ -5,6 +5,35 @@
 using namespace std;
 void binsearch(int * arr,int first,int last,int srch);
 
+int binary_search(int* a , int* l,int srch,int leftside)
+{
+    int middle = (l-a)/2;
+
+    if(l-a == 1)
+    {
+        if(*a == srch){
+            return middle + leftside;
+        }
+        else if(*l == srch){
+            return middle +1 + leftside;
+        }
+        else{
+            return -1;
+        }
+    }
+
+    if(a[middle] < srch)
+    {
+        return binary_search(a+middle,l,srch ,leftside + middle);
+    }
+    else if(a[middle]>srch) {
+        return binary_search(a,l - middle,srch,leftside);
+    }
+    else {
+        return middle + leftside;
+    }
+}
+
 
 int main()
 {
