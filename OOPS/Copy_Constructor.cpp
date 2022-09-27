@@ -30,6 +30,8 @@ class Car
     }
 
     //////////////////////////////////////////////////////////////////
+
+    
     Car() // To overide constructor
     {
         cout << " a car object is being created"<<endl;
@@ -38,7 +40,7 @@ class Car
     {                                  // This is called Constructor Overloading!!
         price = p;
         model_no = m;
-    strcpy(name,s);
+        strcpy(name,s);
         }
 
     int model_no;
@@ -83,8 +85,8 @@ int main()
     c.name[2] = 'W';
     c.name[3] = '\0';
 
-    Car e(d);
-    Car f(&e);
+    Car e(d); // by referernce
+    Car f(&e); // by pointer
     
     c.print();
     cout<< "car d:"<<endl;
