@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+ #include<bits/stdc++.h>
 
 using namespace std;
 
@@ -114,6 +114,67 @@ bool RecSearch(node * head,int key)
     }
 }
 
+node* take_input()
+{
+    int d;
+     cin>>d;
+    node * head = NULL;
+    while(d!=-1)
+    {
+         insertHead(head,d);
+         cin>>d;
+    }
+    return head;
+}
+
+istream& operator>>(istream& is,node* &head)
+{
+    head = take_input();
+    return is;
+} 
+
+ostream& operator<<(ostream& os , node* & head)
+{
+    print(head);
+    return os;
+}
+
+void reverse(node*& head)
+{
+    node* current =head;
+    node* prev = NULL;
+    node* next;
+
+    while(current!=NULL)
+    {
+        next = current->link;
+        current->link = prev;
+        prev = current;
+        current = next;
+    }
+    head= prev;
+}
+
+node* RecReverse(node* head)
+{
+    if(head->link == NULL)
+    {
+        
+        return head;
+    }
+     node*TempHead = RecReverse(head->link);
+
+    node* temp = head->link;
+    temp->link = head;
+    head->link = NULL;
+
+    return TempHead;
+
+    
+}
+
+
+
 int main()
 {
     node* head =NULL;
@@ -135,5 +196,19 @@ int main()
     if(RecSearch(head,3)){
         cout << "3 is present"<<endl;
     }
+
+    //node * head2 = take_input();
+    //print(head2);
+
+    node* temp;
+    cin>>temp;
+    cout << temp;
+
+    reverse(temp);
+    cout << temp;
+
+    node * temp2 = RecReverse(temp);
+    cout << temp2;
+
 
 }
