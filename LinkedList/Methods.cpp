@@ -1,4 +1,4 @@
-  #include<bits/stdc++.h>
+#include<bits/stdc++.h>
 
 using namespace std;
 
@@ -208,12 +208,38 @@ node* Kth_node_from_end(node* head,int k)
     return slow;
 }
 
+node* merge(node * a ,node* b) // Sort 2 linked list
+{
+    //base case
+    if(a == NULL)
+    {
+        return b;
+    }
+    if(b==NULL)
+    {
+        return b;
+    }
+
+    node* c ;
+
+    if(a->data<b->data)
+    {
+        c= a;
+        c->link = merge(a->link,b);
+    }
+    else{
+        c= b;
+        c->link = merge(a,b->link);
+    }
+    return c;
+}
+
 
 int main()
 {
     node* head =NULL;
 
-    insertHead(head,2);
+    /*insertHead(head,2);
     insertHead(head,3);
     insertHead(head,4);
     insertMiddle(head,5,1);
@@ -248,5 +274,15 @@ int main()
     cout << "Middle value:"<<mid_point->data<<endl;
 
     node * l = Kth_node_from_end(temp2,2);
-    cout << "2nd value from end:"<<l->data<<endl;
+    cout << "2nd value from end:"<<l->data<<endl;*/
+
+    node* a,*b;
+    cin>>a>>b;
+    reverse(a);
+    reverse(b);
+    cout << a << b;
+    node*c = merge(a,b);
+    cout << c;
+
+
 }
