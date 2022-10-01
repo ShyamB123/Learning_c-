@@ -1,4 +1,4 @@
- #include<bits/stdc++.h>
+  #include<bits/stdc++.h>
 
 using namespace std;
 
@@ -173,6 +173,40 @@ node* RecReverse(node* head)
     
 }
 
+node*  midpoint(node* head)
+{
+    if(head==NULL or head->link == NULL)
+    {
+        return head;
+    }
+
+    node* temp1 = head->link;
+    node* temp2 = head;
+
+    while(temp1->link != NULL && temp1!= NULL)
+    {
+        temp1= temp1->link->link;
+        temp2 = temp2->link;
+        
+    }
+    return temp2;
+}
+
+node* Kth_node_from_end(node* head,int k)
+{
+    node* fast = head;
+    node* slow=  head;
+    for(int i =1 ;i<k;i++)
+    {
+        fast = fast->link;
+    }
+    while(fast->link!=NULL)
+    {
+        fast = fast->link;
+        slow = slow->link;
+    }
+    return slow;
+}
 
 
 int main()
@@ -209,6 +243,10 @@ int main()
 
     node * temp2 = RecReverse(temp);
     cout << temp2;
+    
+    node * mid_point = midpoint(temp2);
+    cout << "Middle value:"<<mid_point->data<<endl;
 
-
+    node * l = Kth_node_from_end(temp2,2);
+    cout << "2nd value from end:"<<l->data<<endl;
 }
