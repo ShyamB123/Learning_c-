@@ -1,4 +1,4 @@
-#include<bits/stdc++.h>
+  #include<bits/stdc++.h>
 
 using namespace std;
 
@@ -183,12 +183,17 @@ node*  midpoint(node* head)
     node* temp1 = head->link;
     node* temp2 = head;
 
-    while(temp1->link != NULL && temp1!= NULL)
+    //while((temp1->link != NULL) and ( temp1!= NULL))
+    while( ( temp1 != NULL) and (temp1->link != NULL) )
     {
         temp1= temp1->link->link;
         temp2 = temp2->link;
-        
+       // cout << "midpt: temp1" << temp1;
+       // cout << "midpt: temp2: "<< temp2;  
     }
+
+   // cout <<"just for testing...";
+    //cout << "midpoint: temp2 " << temp2;
     return temp2;
 }
 
@@ -208,7 +213,7 @@ node* Kth_node_from_end(node* head,int k)
     return slow;
 }
 
-node* merge(node * a ,node* b) // Sort 2 linked list
+node* merge(node * &a ,node* &b) // merge 2 sorted linked list
 {
     //base case
     if(a == NULL)
@@ -217,10 +222,9 @@ node* merge(node * a ,node* b) // Sort 2 linked list
     }
     if(b==NULL)
     {
-        return b;
+        return a;
     }
-
-    node* c ;
+    node* c  = NULL;
 
     if(a->data<b->data)
     {
@@ -234,10 +238,110 @@ node* merge(node * a ,node* b) // Sort 2 linked list
     return c;
 }
 
+node* merge_sort(node* head)
+{
+    //base case
+    
+    if(head->link == NULL)
+    {
+        return head;
+    }
+
+    //recursive case
+
+    node * mid = midpoint(head);
+    node * a = head;
+    node* b = mid->link;
+    mid->link = NULL;
+
+    a= merge_sort(a);
+    b= merge_sort(b);    
+
+    node* c= merge(a,b);
+    return c;
+}
+
+bool isCycle(node * head)
+{
+    node* fast  = head;
+    node* slow = head;
+
+    while(fast!= NULL and fast->link != NULL)
+    {
+        fast= fast->link->link;
+        slow = slow->link;
+
+        if(fast == slow)
+        {
+            return true;
+        }
+    }
+    return false;
+}
+
+bool floydCycleRemoval(node*head)
+{
+    if(isCycle(head))
+    {
+        node* fast= head;
+        node* slow = head;
+
+        while(1)
+        {
+            fast = fast->link->link;
+            slow = slow->link;
+            if(slow==fast)
+            {
+                break;
+            }
+        }
+
+        slow = head;
+
+        while(slow != fast)
+        {
+          slow =  slow->link;
+          fast = fast->link;
+
+        }
+
+        node* cycle_start = slow;
+
+        node* temp = head;
+        int count = 0;
+
+        while(1)
+        {
+            if(temp->link == cycle_start)
+            {
+                count++;
+            }
+            if(count ==2 )
+            {
+                temp->link = NULL;
+                break;
+            }
+            temp = temp->link;
+        }
+
+        cout << head;
+        return true;
+    }
+    else{
+        return false;
+    }
+}
 
 int main()
 {
     node* head =NULL;
+
+    cin>>head ;
+    cout <<head;
+    head=  merge_sort(head);
+    //node*mid = midpoint(head);
+    //cout << "debug mid:" << mid->data;
+    cout << head;
 
     /*insertHead(head,2);
     insertHead(head,3);
@@ -276,13 +380,14 @@ int main()
     node * l = Kth_node_from_end(temp2,2);
     cout << "2nd value from end:"<<l->data<<endl;*/
 
-    node* a,*b;
+    /*node* a,*b;
     cin>>a>>b;
     reverse(a);
     reverse(b);
     cout << a << b;
     node*c = merge(a,b);
-    cout << c;
+    cout << c;*/
+
 
 
 }
