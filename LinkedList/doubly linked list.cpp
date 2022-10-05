@@ -32,7 +32,8 @@ void InsertAtHead(int x)
 {
     node * temp = new node();
 
-    if(head!=NULL)head->prev=temp;
+    if(head!=NULL)
+        head->prev=temp;
     temp->data=x;
     temp->prev=NULL;
     temp->next= head;
