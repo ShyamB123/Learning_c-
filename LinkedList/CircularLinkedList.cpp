@@ -50,13 +50,59 @@ void print(node* head)
         cout << pntr->data<<"->";
         pntr = pntr->link;
     }while(pntr != head);
+    cout << endl;
 
    
 
 }
 
+node* getnode(node* head,int d)
+{
+    node * temp = head;
+    while(temp->link!=head)
+    {
+        if(temp->data == d)
+        {
+            return temp;
+        }
+        temp = temp->link;
+    }
+    temp=temp->link;
+    if(temp->data==d)
+    {
+        return temp;
+    }
+    return NULL;
+}
+
+void deletenode(node* &head,int d)
+{
+    node* del = getnode(head,d);
+
+    if(del == NULL)
+    {
+        return;
+    }
+
+    if(del == head)
+    {
+        head = head->link;
+    }
+    node*temp = head;
+
+    while(temp->link!= del)
+    {
+        temp = temp->link;
+    }
+
+    temp->link = del->link;
+    delete del;
+
+}
+
 int main()
 {
+    
      node* head = NULL;
      insert(head,10);
      insert(head,20);
@@ -64,6 +110,10 @@ int main()
      insert(head,40);
      insert(head,50);
 
+     print(head);
+
+     deletenode(head,30);
+     deletenode(head,50);
      print(head);
 
 }
