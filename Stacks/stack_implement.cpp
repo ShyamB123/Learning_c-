@@ -10,7 +10,7 @@ class stack
     vector<T> v;
 
     public:
-    bool is_empty()
+    bool empty()
      {
         return v.size() == 0;
      }
@@ -38,7 +38,7 @@ int main()
     {
         s.push(i*i);
     }
-    while(!s.is_empty())
+    while(!s.empty())
     {
         cout << s.top() << endl;
         s.pop();
