@@ -20,7 +20,7 @@ class stack
      }
      void pop()
      {
-        if(!is_empty())
+        if(!empty())
         v.pop_back();
      }
      T top()
