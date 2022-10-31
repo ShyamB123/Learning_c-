@@ -24,6 +24,7 @@ void clear_range(int&n , int i,int j)
 int main()
 {
     int n;
+    cout<<"enter a number:";
     cin>>n;
 
     clear_range(n,4,2);
