@@ -204,8 +204,62 @@ pair<int, int> fast_diameter(node *head)
     left = fast_diameter(head->left);
     right = fast_diameter(head->right);
 
-    p.first = max(left.first, right.first) + 1;
-    p.second = max(left.first +right.first, max(left.second, right.second));
+    p.first = max(left.first, right.first) + 1;                               // height
+    p.second = max(left.first + right.first, max(left.second, right.second)); // diameter
+    return p;
+}
+
+int sum_replacement(node *root)
+{
+    if (root == NULL)
+    {
+        return 0;
+    }
+    if ((root->left == NULL) && (root->right == NULL))
+    {
+        return root->data;
+    }
+
+    int left_sum = sum_replacement(root->left);
+    int right_sum = sum_replacement(root->right);
+
+    int temp = root->data;
+    root->data = left_sum + right_sum;
+    return root->data + temp;
+}
+
+class hbpair
+{
+public:
+    int height;
+    bool balance;
+};
+
+hbpair isHeightBalanced(node *root)
+{
+    hbpair p;
+    if (root == NULL)
+    {
+        p.balance = true;
+        p.height = 0;
+        return p;
+    }
+
+    // recursive
+
+    hbpair l = isHeightBalanced(root->left);
+    hbpair r = isHeightBalanced(root->right);
+
+    if (abs(l.height - r.height) <= 1 && l.balance && r.balance)
+    {
+        p.balance = true;
+    }
+    else
+    {
+        p.balance = false;
+    }
+
+    p.height = max(l.height, r.height) + 1;
     return p;
 }
 int main()
@@ -221,14 +275,27 @@ int main()
     // printKthLevel(root, 3);
     // cout << endl;
     printAllLevels(root);
-    bfs(root);
+    // bfs(root);
 
-    cout << count(root) << endl;
-    cout << sum(root) << endl;
-    cout << diameter(root) << endl;
+    // cout << count(root) << endl;
+    // cout << sum(root) << endl;
+    // cout << diameter(root) << endl;
 
-    pair<int, int> p;
-    p = fast_diameter(root);
-    cout << "height:" << p.first << endl;
-    cout << "diameter:" << p.second << endl;
+    // pair<int, int> p;
+    // p = fast_diameter(root);
+    // cout << "height:" << p.first << endl;
+    // cout << "diameter:" << p.second << endl;
+
+    // sum_replacement(root);
+    // bfs(root);
+
+    hbpair p = isHeightBalanced(root);
+    if (p.balance)
+    {
+        cout << " the tree is balanced:" << endl;
+    }
+    else
+    {
+        cout << " the tree is not balanced" << endl;
+    }
 }
