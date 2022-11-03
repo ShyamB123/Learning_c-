@@ -2,13 +2,13 @@
 
 using namespace std;
 
-bool safetoput(int a[][100], int n, int i, int j)
+bool safetoput(int a[][100], int n, int row, int col)
 {
     // horizontal
 
     for (int k = 0; k < n; k++)
     {
-        if (a[i][k] == 1)
+        if (a[row][k] == 1)
         {
             return false;
         }
@@ -18,7 +18,7 @@ bool safetoput(int a[][100], int n, int i, int j)
 
     for (int k = 0; k < n; k++)
     {
-        if (a[k][j] == 1)
+        if (a[k][col] == 1)
         {
             return false;
         }
@@ -26,8 +26,8 @@ bool safetoput(int a[][100], int n, int i, int j)
 
     // diagonal;
 
-    int x = i;
-    int y = j;
+    int x = row;
+    int y = col;
 
     while (x >= 0 && y < n)
     {
@@ -38,8 +38,8 @@ bool safetoput(int a[][100], int n, int i, int j)
         x--;
         y++;
     }
-    x = i;
-    y = i;
+    x = row;
+    y = col;
     while (x >= 0 && y >= 0)
     {
         if (a[x][y] == 1)
