@@ -75,4 +75,6 @@ int main()
 
     int ans3 = optimised(n, k);
     cout << ans3 << endl;
+
+    cout << "DONE" << endl;
 }
