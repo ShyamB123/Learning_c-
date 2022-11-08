@@ -204,7 +204,7 @@ pair<int, int> fast_diameter(node *head)
     left = fast_diameter(head->left);
     right = fast_diameter(head->right);
 
-    p.first = max(left.first, right.first) + 1;                               // height
+    p.first = max(left.first, right.first) + 1; // height
     p.second = max(left.first + right.first, max(left.second, right.second)); // diameter
     return p;
 }
