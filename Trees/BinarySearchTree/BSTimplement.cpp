@@ -191,6 +191,63 @@ bool isBST(node * root,int minv = INT_MIN,int maxv= INT_MAX)
     }
 }
 
+class linkedlist
+{
+    public:
+
+    node * head;
+    node * tail;
+};
+
+linkedlist flatten(node * root)
+{
+    linkedlist l;
+    if(root == NULL)
+    {
+        l.head = l.tail = NULL;
+        return l;
+    }
+    //if it is leaf node
+    if(root->left==NULL && root->right == NULL)
+    {
+        l.head = l.tail = root;
+        return l;
+    }
+    // if the node has only left subtree
+    if(root->left!=NULL && root->right == NULL)
+    {
+        linkedlist leftLL = flatten(root->left);
+        leftLL.tail->right = root;
+        
+        l.head = leftLL.head;
+        l.tail = root;
+        return l;
+    }
+    // if the node has only right subtree
+    if(root->left == NULL && root->right!= NULL)
+    {
+        linkedlist rightLL = flatten(root->right);
+        root->right = rightLL.head;
+        
+        l.head = root;
+        l.tail = rightLL.tail;
+
+        return l;
+    }
+    //if both subtrees are present
+
+    linkedlist leftLL = flatten(root->left);
+    linkedlist rightLL = flatten(root->right);
+
+    leftLL.tail->right = root;
+    root->right = rightLL.head;
+
+    l.head = leftLL.head;
+    l.tail = rightLL.tail;
+
+    return l;
+}
+
 int main()
 {
     node *root = build();
@@ -200,14 +257,26 @@ int main()
     inorder(root);
     cout <<endl;
 
-    root = deletion(root,5);
+    //root = deletion(root,5);
 
-    bfs(root);
+   // bfs(root);
 
-    inorder(root);
+    // inorder(root);
+    // cout << endl;
 
-    if (isBST(root))
+    // if (isBST(root))
+    // {
+    //     cout << "It is BST" << endl;
+    // }
+
+    linkedlist l ;
+
+    l = flatten(root);
+    node * temp = l.head;
+    while(temp!=NULL)
     {
-        cout << "It is BST" << endl;
+        cout << temp->data<<"-->";
+        temp = temp->right;
     }
+    cout << endl;
 }
