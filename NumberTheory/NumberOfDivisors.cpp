@@ -62,50 +62,6 @@ int no_of_divisors(int n,vector<int> v)
     
 }
 
-// void solve(vector<ll> v)
-// {
-//     // for(auto it:v)
-//     // {
-//     //     cout << it<<" ";
-//     // }
-//     ll n;
-//     cin >> n;
-
-//     ll a[n];
-//     for (ll i = 0; i < n; i++)
-//     {
-//         cin >> a[i];
-//     }
-//     bool ans;
-//     unordered_map<ll, ll> m;
-
-//     for(ll i = 0;i<n;i++)
-//     {
-//             ans = factor(a[i],m,v);
-//             if(ans == true)
-//             {
-//                 cout << "yes"<<endl;
-//                 return;
-//             }
-        
-        
-//     }
-//     // for(auto it = m.begin();it!=m.end();it++)
-//     // {
-
-//     //     cout << it->first<< "="<<it->second<<endl;
-//     // }
-//     // if(ans == true)
-//     // {
-//     //     cout << "yes"<<endl;
-//     // }
-//     // else
-//     // {
-//         cout << "no"<<endl;
-//    // }
-    
-// }
-
 int main()
 {
     int t;
