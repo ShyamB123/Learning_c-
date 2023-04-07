@@ -9,4 +9,15 @@
 
 using namespace std;
 
-c
+ll binexp(ll a,ll b)
+{
+    ll result = 1;
+    while(b){
+        if(b&1){
+            result = (result*a)%mod;
+        }
+        a = (a*a)%mod;
+        b>>=1;
+    }
+    return result;
+}
