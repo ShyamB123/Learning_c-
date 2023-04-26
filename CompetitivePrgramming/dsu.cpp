@@ -18,7 +18,7 @@ public:
     dsu(int vertices)
     {
         this->V = vertices;
-        rank = vector<int>(vertices + 1, 0);
+        rank = vector<int>(vertices + 1, 1);
         parent = vector<int>(vertices + 1, 0);
 
         for (int i = 1; i <= vertices; i++)
