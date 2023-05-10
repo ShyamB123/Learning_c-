@@ -1,3 +1,4 @@
+
 #include <bits/stdc++.h>
 #define ll long long
 #define fast_io                       \
@@ -10,44 +11,45 @@
 #define S second
 #define pb push_back
 #define mp make_pair
-
+ 
 #define vi vector<int>
 #define vl vector<ll>
 #define vii vector<pair<int, int>>
 #define vll vector<pair<ll, ll>>
 #define all(a) a.begin(), a.end()
 #define nl '\n'
-
+ 
 using namespace std;
-
+ 
 bool compare(pair<ll, ll> p1, pair<ll, ll> p2)
 {
     return p1.F > p2.F;
 }
-
+ 
 /*
-
+ 
 */
-
+ 
+ 
 const int N = 2 * 1e5 + 1;
 vector<vi> adj(N);
 vector<vi> ans(N);
 vector<vi> up(N, vector<int>(20, -1));
-vector<int> level(N, 0);
-
-void find_level(int src, int par, int l)
+vector<int> level(N,0);
+ 
+void find_level(int src,int par,int l)
 {
     level[src] = l;
-
-    for (auto it : adj[src])
+ 
+    for(auto it:adj[src])
     {
-        if (it != par)
+        if(it!=par)
         {
-            find_level(it, src, l + 1);
+            find_level(it,src,l+1);
         }
     }
 }
-
+ 
 void dfs(int src, int par)
 {
     if (src != par)
@@ -61,7 +63,7 @@ void dfs(int src, int par)
                 up[src][i] = -1;
         }
     }
-
+ 
     for (auto it : adj[src])
     {
         if (it != par)
@@ -70,8 +72,8 @@ void dfs(int src, int par)
         }
     }
 }
-
-int up_checker(int x, int k)
+ 
+int up_checker(int x,int k)
 {
     bool ok = false;
     for (int i = 0; (1 << i) <= k; i++)
@@ -88,20 +90,20 @@ int up_checker(int x, int k)
     }
     return x;
 }
-
+ 
 void solve()
 {
     int n;
     cin >> n;
-
+ 
     int q;
     cin >> q;
-
+ 
     for (int i = 2; i <= n; i++)
     {
         int x;
         cin >> x;
-
+ 
         adj[x].pb(i);
     }
     for (int i = 1; i <= n; i++)
@@ -111,53 +113,56 @@ void solve()
             up[i][j] = -1;
         }
     }
-
-    find_level(1, 1, 0);
+ 
+    find_level(1,1,0);
     dfs(1, 1);
-
+ 
     for (int qr = 0; qr < q; qr++)
     {
-        int a, b;
-        cin >> a >> b;
+        int a,b;
+        cin>>a>>b;
 
-        if (level[a] < level[b])
+        if(level[a]<level[b])
         {
-            b = up_checker(b, level[b] - level[a]);
+            b = up_checker(b,level[b]-level[a]);
         }
-        else if (level[b] < level[a])
+        else if(level[b]<level[a])
         {
-            a = up_checker(a, level[a] - level[b]);
+            a = up_checker(a,level[a]-level[b]);
         }
-
-        if (a == b)
+ 
+    
+        if(a == b)
         {
-            cout << a << nl;
+            cout <<a<<nl;
             continue;
         }
-
-        for (int i = 20; i >= 0; i--)
+ 
+        for(int i = 20;i>=0;i--)
         {
             int tempa = up[a][i];
             int tempb = up[b][i];
-
-            if (tempa != tempb && tempa != -1 && tempb != 1)
+ 
+            if(tempa != tempb && tempa!=-1 && tempb!=1)
             {
                 a = tempa;
                 b = tempb;
             }
         }
-
+ 
+ 
         a = up[a][0];
-
-        cout << a << nl;
+ 
+        cout <<a<<nl;
+ 
     }
 }
-
+ 
 int main()
 {
     fast_io;
     cout << fixed;
     cout << setprecision(10);
-
+ 
     solve();
 }
