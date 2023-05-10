@@ -26,30 +26,23 @@ bool compare(pair<ll, ll> p1, pair<ll, ll> p2)
 }
 
 /*
-5 1
-1 2
-1 3
-3 4
-3 5
-
-*/
-
+ */
 
 const int N = 2 * 1e5 + 1;
 vector<vi> adj(N);
 vector<vi> ans(N);
 vector<vi> up(N, vector<int>(20, -1));
-vector<int> level(N,0);
+vector<int> level(N, 0);
 
-void find_level(int src,int par,int l)
+void find_level(int src, int par, int l)
 {
     level[src] = l;
 
-    for(auto it:adj[src])
+    for (auto it : adj[src])
     {
-        if(it!=par)
+        if (it != par)
         {
-            find_level(it,src,l+1);
+            find_level(it, src, l + 1);
         }
     }
 }
@@ -77,7 +70,7 @@ void dfs(int src, int par)
     }
 }
 
-int up_checker(int x,int k)
+int up_checker(int x, int k)
 {
     bool ok = false;
     for (int i = 0; (1 << i) <= k; i++)
@@ -105,8 +98,8 @@ void solve()
 
     for (int i = 2; i <= n; i++)
     {
-        int x,y;
-        cin >> x>>y;
+        int x, y;
+        cin >> x >> y;
 
         adj[x].pb(y);
         adj[y].pb(x);
@@ -119,50 +112,47 @@ void solve()
         }
     }
 
-    find_level(1,1,0);
+    find_level(1, 1, 0);
     dfs(1, 1);
 
     for (int qr = 0; qr < q; qr++)
     {
-        int a,b;
-        cin>>a>>b;
+        int a, b;
+        cin >> a >> b;
 
-        ll dist =0;
+        ll dist = 0;
 
         dist += abs(level[a] - level[b]);
 
-        if(level[a]<level[b])
+        if (level[a] < level[b])
         {
-            b = up_checker(b,level[b]-level[a]);
+            b = up_checker(b, level[b] - level[a]);
         }
-        else if(level[b]<level[a])
+        else if (level[b] < level[a])
         {
-            a = up_checker(a,level[a]-level[b]);
+            a = up_checker(a, level[a] - level[b]);
         }
 
-
-        if(a != b)
+        if (a != b)
         {
 
-            for(int i = 20;i>=0;i--)
+            for (int i = 20; i >= 0; i--)
             {
                 int tempa = up[a][i];
                 int tempb = up[b][i];
 
-                if(tempa != tempb && tempa!=-1 && tempb!=1)
+                if (tempa != tempb && tempa != -1 && tempb != 1)
                 {
                     a = tempa;
                     b = tempb;
-                    dist += (1ll<<(i+1));
-
+                    dist += (1ll << (i + 1));
                 }
             }
 
             dist += 2;
         }
 
-
-        cout <<dist<<nl;
+        cout << dist << nl;
     }
 }
 
